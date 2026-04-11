@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heritage India – 20 Iconic Indian Sites</title>
+    <meta name="description" content="Explore 20 iconic Indian heritage sites, history, guides and book local experts.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <i class="fa-solid fa-monument"></i>
+            <span>Heritage<em>India</em></span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <button class="nav-btn active" data-view="dashboardView">
+                <i class="fa-solid fa-gauge-high"></i><span>Dashboard</span>
+            </button>
+            <button class="nav-btn" data-view="exploreView">
+                <i class="fa-solid fa-compass"></i><span>Explore Sites</span>
+            </button>
+            <button class="nav-btn" data-view="travellersView">
+                <i class="fa-solid fa-users"></i><span>Travellers</span>
+            </button>
+        </nav>
+
+        <div class="sidebar-sites-wrap" id="sidebarSitesWrap">
+            <div class="sidebar-label">All Heritage Sites</div>
+            <ul id="siteList"></ul>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main" id="mainArea">
+
+        <!-- ===== DASHBOARD ===== -->
+        <div class="view active-view" id="dashboardView">
+            <div class="view-scroll">
+                <div class="dash-hero">
+                    <div class="dash-hero-text">
+                        <h1>Welcome to <span>Heritage India</span></h1>
+                        <p>Discover 20 UNESCO-recognised Indian heritage sites, read their story, and connect with expert local guides.</p>
+                        <button class="btn-primary" id="goExploreBtn"><i class="fa-solid fa-compass"></i> Explore Heritage Sites</button>
+                    </div>
+                    <div class="dash-hero-img">
+                        <img src="sites/taj-mahal.jpg" alt="Taj Mahal" onerror="this.src='https://picsum.photos/seed/tajmahal/600/400'">
+                    </div>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#fff5eb;color:#ea580c"><i class="fa-solid fa-landmark"></i></div>
+                        <div><h3>20</h3><p>Listed Sites</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#f0fdf4;color:#16a34a"><i class="fa-solid fa-user-group"></i></div>
+                        <div><h3>1.4M</h3><p>Annual Visitors</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#fffbeb;color:#d97706"><i class="fa-solid fa-star"></i></div>
+                        <div><h3>4.8★</h3><p>Avg Rating</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#eff6ff;color:#2563eb"><i class="fa-solid fa-globe"></i></div>
+                        <div><h3>38</h3><p>UNESCO Sites in India</p></div>
+                    </div>
+                </div>
+
+                <div class="dash-panels">
+                    <div class="dash-panel">
+                        <h3><i class="fa-solid fa-fire"></i> Most Visited</h3>
+                        <ul class="ranked-list" id="rankedList"></ul>
+                    </div>
+                    <div class="dash-panel">
+                        <h3><i class="fa-solid fa-clock-rotate-left"></i> Recent Activity</h3>
+                        <ul class="activity-list">
+                            <li><span class="av">RP</span><div><b>Rahul P.</b> checked in at <em>Red Fort, Delhi</em></div></li>
+                            <li><span class="av">SS</span><div><b>Sneha S.</b> left 5★ for <em>Hampi Monuments</em></div></li>
+                            <li><span class="av">DM</span><div><b>David M.</b> booked a guide for <em>Sun Temple</em></div></li>
+                            <li><span class="av">PK</span><div><b>Priya K.</b> added photos to <em>Ajanta Caves</em></div></li>
+                            <li><span class="av">AJ</span><div><b>Arjun J.</b> shared tips for <em>Khajuraho Group</em></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== EXPLORE SITES ===== -->
+        <div class="view" id="exploreView">
+            <!-- Top slider -->
+            <div class="top-slider">
+                <button class="slider-arrow" id="sliderLeft"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="slider-track" id="sliderTrack"></div>
+                <button class="slider-arrow" id="sliderRight"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <!-- Content area -->
+            <div class="explore-content" id="exploreContent">
+                <!-- Grid (default) -->
+                <div id="sitesGrid" class="sites-grid"></div>
+                <!-- Detail (when site selected) -->
+                <div id="siteDetail" class="site-detail" style="display:none;"></div>
+            </div>
+        </div>
+
+        <!-- ===== TRAVELLERS ===== -->
+        <div class="view" id="travellersView">
+            <div class="view-scroll">
+                <div class="page-hdr">
+                    <h1>Traveller Community</h1>
+                    <p>Real stories from explorers who've walked these ancient paths</p>
+                </div>
+                <div class="reviews-grid" id="reviewsGrid"></div>
+            </div>
+        </div>
+
+    </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingModal">
+    <div class="modal-box">
+        <button class="modal-close" id="modalClose"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <h2>Booking Confirmed!</h2>
+        <p id="modalMsg">Your guide has been booked.</p>
+        <button class="btn-primary" id="modalOkBtn">Awesome, Thanks!</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
