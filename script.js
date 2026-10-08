@@ -229,15 +229,94 @@ const SITES = [
   },
 ];
 
+// ── FOOD & CUISINE DATA ─────────────────────────────────
+// img = Unsplash CDN (no API key needed), seed = Picsum fallback key.
+// type: veg | nonveg | Filters use: veg / nonveg / street / sweet
+const FOODS = [
+  { seed:'petha-agra', name:'Agra Petha', site:'Taj Mahal · Agra Fort', type:'veg', cat:'sweet', price:'Rs.120 / box', spice:'mild', spiceLabel:'Sweet · No spice',
+    img:'https://images.unsplash.com/photo-1610508500445-a4592435e27e?w=600&q=80',
+    desc:'Translucent ash-gourd candy, Agra\u2019s most famous souvenir. Try Kesar, Paan and Chocolate flavours at Panchhi Petha.' },
+  { seed:'bedai-agra', name:'Bedai & Jalebi', site:'Taj Mahal · Agra', type:'veg', cat:'street', price:'Rs.60 / plate', spice:'medium', spiceLabel:'Medium spicy',
+    img:'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&q=80',
+    desc:'Crisp fried Bedai poori with spicy aloo sabzi and hot jalebis — the classic Agra breakfast.' },
+  { seed:'mughlai-agra', name:'Mughlai Biryani', site:'Fatehpur Sikri · Agra', type:'nonveg', cat:'mughlai', price:'Rs.220 / plate', spice:'hot', spiceLabel:'Rich & spicy',
+    img:'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=600&q=80',
+    desc:'Fragrant dum biryani with saffron, kewra and tender mutton — legacy of the Mughal kitchens of Agra.' },
+  { seed:'paratha-delhi', name:'Paranthe Wali Gali Platter', site:'Red Fort · Delhi', type:'veg', cat:'street', price:'Rs.150 / thali', spice:'medium', spiceLabel:'Medium spicy',
+    img:'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80',
+    desc:'Legendary Chandni Chowk lane serving 30+ stuffed parathas — gobhi, aloo, rabri — with sweet lassi.' },
+  { seed:'chole-delhi', name:'Chole Bhature', site:'Qutub Minar · Delhi', type:'veg', cat:'street', price:'Rs.100 / plate', spice:'hot', spiceLabel:'Spicy',
+    img:'https://images.unsplash.com/photo-1626132647523-66f5bf380027?w=600&q=80',
+    desc:'Fluffy bhature with dark tangy Amritsari chole, pickled onions and green chilli — Delhi\u2019s brunch.' },
+  { seed:'kebabs-delhi', name:'Old Delhi Kebabs', site:'Red Fort · Delhi', type:'nonveg', cat:'street', price:'Rs.250 / plate', spice:'hot', spiceLabel:'Charcoal grilled',
+    img:'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80',
+    desc:'Seekh kebabs, chicken tikka and mutton burra from Karim\u2019s and Qureshi Kabab Corner near Jama Masjid.' },
+  { seed:'misal-maha', name:'Misal Pav', site:'Ajanta · Ellora · Elephanta', type:'veg', cat:'street', price:'Rs.80 / plate', spice:'hot', spiceLabel:'Fiery',
+    img:'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=600&q=80',
+    desc:'Sprouted bean curry topped with farsan, onion and lemon, mopped up with pav — Maharashtra\u2019s icon.' },
+  { seed:'vada-mumbai', name:'Vada Pav', site:'Elephanta Caves · Mumbai', type:'veg', cat:'street', price:'Rs.25 / piece', spice:'medium', spiceLabel:'Medium spicy',
+    img:'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=600&q=80',
+    desc:'Mumbai\u2019s burger — crisp batata vada in soft pav with garlic chutney. Grab one at the Gateway jetty.' },
+  { seed:'modak-maha', name:'Ukadiche Modak', site:'Ajanta · Ellora Caves', type:'veg', cat:'sweet', price:'Rs.40 / piece', spice:'mild', spiceLabel:'Sweet · No spice',
+    img:'https://images.unsplash.com/photo-1601303516361-9e8a7a0e0e0e?w=600&q=80',
+    desc:'Steamed rice-flour dumplings stuffed with coconut-jaggery — found across Maharashtra.' },
+  { seed:'chhena-odisha', name:'Chhena Poda', site:'Sun Temple · Konark', type:'veg', cat:'sweet', price:'Rs.180 / kg', spice:'mild', spiceLabel:'Sweet · No spice',
+    img:'https://images.unsplash.com/photo-1589119908995-c6837fa14848?w=600&q=80',
+    desc:'Odisha\u2019s legendary baked cheese dessert — caramelised chhena with cardamom, best eaten warm.' },
+  { seed:'dalma-odisha', name:'Dalma & Pakhala', site:'Sun Temple · Konark', type:'veg', cat:'traditional', price:'Rs.120 / thali', spice:'mild', spiceLabel:'Mild & wholesome',
+    img:'https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80',
+    desc:'Lentils cooked with raw papaya and pumpkin, served with fermented Pakhala rice — soul food of Odisha.' },
+  { seed:'poha-mp', name:'Poha Jalebi', site:'Sanchi Stupa · Khajuraho', type:'veg', cat:'street', price:'Rs.50 / plate', spice:'mild', spiceLabel:'Light & tangy',
+    img:'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&q=80',
+    desc:'Madhya Pradesh\u2019s iconic breakfast — flattened rice with peanuts and curry leaves, plus crisp jalebi.' },
+  { seed:'bhutte-mp', name:'Bhutte ka Kees', site:'Sanchi · Khajuraho', type:'veg', cat:'street', price:'Rs.70 / plate', spice:'medium', spiceLabel:'Medium spicy',
+    img:'https://images.unsplash.com/photo-1590301157890-4810ed352733?w=600&q=80',
+    desc:'Grated corn sauteed in ghee with mustard, coconut and coriander — Indore\u2019s monsoon-famous snack.' },
+  { seed:'bisi-karnataka', name:'Bisi Bele Bath', site:'Hampi · Pattadakal', type:'veg', cat:'traditional', price:'Rs.90 / plate', spice:'medium', spiceLabel:'Medium spicy',
+    img:'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=600&q=80',
+    desc:'Karnataka\u2019s hot lentil-rice comfort dish with tamarind and vegetables, topped with ghee and boondi.' },
+  { seed:'dosa-karnataka', name:'Mysore Masala Dosa', site:'Hampi · Pattadakal', type:'veg', cat:'street', price:'Rs.110 / plate', spice:'medium', spiceLabel:'Medium spicy',
+    img:'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=600&q=80',
+    desc:'Crisp dosa smeared with red garlic chutney, stuffed with potato palya — best with filter coffee.' },
+  { seed:'chettinad-tn', name:'Chettinad Chicken Curry', site:'Chola Temples · Mahabalipuram', type:'nonveg', cat:'traditional', price:'Rs.260 / meal', spice:'hot', spiceLabel:'Fiery & aromatic',
+    img:'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80',
+    desc:'Black-pepper and stone-flower spiced chicken curry from Chettinad — Tamil Nadu\u2019s celebrated cuisine.' },
+  { seed:'filter-tn', name:'Filter Coffee & Pongal', site:'Chola Temples · Tamil Nadu', type:'veg', cat:'traditional', price:'Rs.60 / set', spice:'mild', spiceLabel:'Mild & comforting',
+    img:'https://images.unsplash.com/photo-1617695742797-8c0d1b0b0b0e?w=600&q=80',
+    desc:'Frothy dabara filter coffee with ghee ven pongal — the perfect temple-town breakfast near Thanjavur.' },
+  { seed:'litti-bihar', name:'Litti Chokha', site:'Mahabodhi Temple · Bodh Gaya', type:'veg', cat:'traditional', price:'Rs.80 / plate', spice:'medium', spiceLabel:'Smoky & rustic',
+    img:'https://images.unsplash.com/photo-1626074353765-517a681e40be?w=600&q=80',
+    desc:'Ghee-roasted wheat balls stuffed with sattu, served with smoky baingan-tomato chokha — Bihar\u2019s pride.' },
+  { seed:'dhokla-gujarat', name:'Khaman Dhokla & Fafda', site:'Rani ki Vav · Champaner', type:'veg', cat:'street', price:'Rs.70 / plate', spice:'mild', spiceLabel:'Mild & tangy',
+    img:'https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?w=600&q=80',
+    desc:'Spongy steamed dhokla with fafda-jalebi on Sundays — Gujarat\u2019s beloved light breakfast near Patan.' },
+  { seed:'vindaloo-goa', name:'Goan Fish Curry & Vindaloo', site:'Churches of Goa', type:'nonveg', cat:'traditional', price:'Rs.300 / meal', spice:'hot', spiceLabel:'Tangy & fiery',
+    img:'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=600&q=80',
+    desc:'Kokum-soured fish curry with red rice, or pork vindaloo with poi — Portuguese-influenced classics.' },
+  { seed:'bebinca-goa', name:'Bebinca & Dodol', site:'Churches of Goa', type:'veg', cat:'sweet', price:'Rs.350 / pack', spice:'mild', spiceLabel:'Sweet · No spice',
+    img:'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600&q=80',
+    desc:'16-layered Indo-Portuguese pudding of coconut milk and egg yolk — Old Goa\u2019s queen of desserts.' },
+  { seed:'pyaaz-rajasthan', name:'Pyaaz Kachori & Dal Baati', site:'Jantar Mantar · Jaipur', type:'veg', cat:'street', price:'Rs.130 / thali', spice:'medium', spiceLabel:'Medium spicy',
+    img:'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&q=80',
+    desc:'Flaky onion kachori plus dal-baati-churma thali — Jaipur\u2019s must-eat royal combo.' },
+  { seed:'ghevar-rajasthan', name:'Ghevar & Mawa Kachori', site:'Jantar Mantar · Jaipur', type:'veg', cat:'sweet', price:'Rs.400 / kg', spice:'mild', spiceLabel:'Sweet · No spice',
+    img:'https://images.unsplash.com/photo-1666190092159-3171cf0fbb12?w=600&q=80',
+    desc:'Honeycomb-textured monsoon sweet soaked in syrup and topped with rabri — Jaipur\u2019s showstopper.' },
+  { seed:'meals-south', name:'South Indian Meals', site:'All South Sites', type:'veg', cat:'traditional', price:'Rs.140 / meals', spice:'medium', spiceLabel:'Balanced & hearty',
+    img:'https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=600&q=80',
+    desc:'Banana-leaf meals with sambar, rasam, kootu, poriyal and curd — wholesome add-on to any southern trip.' },
+  // __FOODS_PART2__
+];
+
 const REVIEWS = [
   { name:'Arjun Patel',      av:'https://i.pravatar.cc/150?img=11', visited:'Taj Mahal',          stars:5, text:'Visiting at sunrise was beyond words. The marble changes colour with the light — go early, avoid the crowds, give yourself at least 2 hours to soak it in.' },
   { name:'Sneha Sharma',     av:'https://i.pravatar.cc/150?img=22', visited:'Ajanta Caves',        stars:5, text:'The painted frescos have survived 2,000 years and still radiate life. Our guide knew astonishing detail about every painting.' },
   { name:'James Mitchell',   av:'https://i.pravatar.cc/150?img=16', visited:'Hampi Monuments',     stars:5, text:'Renting a bicycle at sunrise and cycling through the ruins alone — the single most magical morning of my life.' },
-  { name:'Priya Nair',       av:'https://i.pravatar.cc/150?img=40', visited:'Mahabalipuram',       stars:4, text:'The Shore Temple at golden hour with waves crashing behind it — one of the most photogenic scenes I\'ve ever captured.' },
+  { name:'Priya Nair',       av:'https://i.pravatar.cc/150?img=40', visited:'Mahabalipuram',       stars:4, text:'The Shore Temple at golden hour with waves crashing behind it — one of the most photogenic scenes I have ever captured.' },
   { name:'David Chen',       av:'https://i.pravatar.cc/150?img=20', visited:'Ellora Caves',        stars:5, text:'The Kailasa Temple defies belief. Carved from a single mountain, top-down, without drawings — it questions what humans are capable of.' },
   { name:'Fatima Al-Rashid', av:'https://i.pravatar.cc/150?img=34', visited:'Red Fort',            stars:4, text:'The sheer scale of the fort is humbling. The Sound & Light show in the evening is theatrical and beautifully narrated.' },
   { name:'Rohan Kapoor',     av:'https://i.pravatar.cc/150?img=36', visited:'Rani ki Vav',        stars:5, text:'I had never heard of a stepwell and I was not prepared for this. Descending into those levels of intricate sculptures felt like another dimension.' },
-  { name:'Maria Gomez',      av:'https://i.pravatar.cc/150?img=56', visited:'Churches of Goa',     stars:5, text:'The Basilica of Bom Jesus has the most serene atmosphere I\'ve experienced in any religious monument globally. Simply humbling.' },
+  { name:'Maria Gomez',      av:'https://i.pravatar.cc/150?img=56', visited:'Churches of Goa',     stars:5, text:'The Basilica of Bom Jesus has the most serene atmosphere I have experienced in any religious monument globally. Simply humbling.' },
   { name:'Ananya Misra',     av:'https://i.pravatar.cc/150?img=44', visited:'Jantar Mantar',       stars:4, text:'A scientific marvel masquerading as an art installation. Our guide showed how the sundial tells time accurate to 2 seconds — speechless.' },
 ];
 
@@ -250,10 +329,37 @@ function starHTML(n) {
     ` <span style="color:#78716c;font-size:.78rem;">${n}</span>`;
 }
 
-// Build an <img> that falls back to Unsplash CDN if local file missing
+// Build an <img> with a 3-level fallback chain:
+// local file -> Unsplash CDN -> Picsum placeholder (never shows broken)
 function imgTag(site, cls='') {
   return `<img src="${site.img}" alt="${site.name}" ${cls ? `class="${cls}"` : ''}
-    onerror="this.onerror=null;this.src='${site.fallback}'">`;
+    onerror="if(!this.dataset.f1){this.dataset.f1=1;this.src='${site.fallback}';}else if(!this.dataset.f2){this.dataset.f2=1;this.src='https://picsum.photos/seed/${site.id}/800/500';}">`;
+}
+
+// Same chain for food images: Unsplash CDN -> Picsum placeholder
+function foodImgTag(food) {
+  return `<img src="${food.img}" alt="${food.name}" loading="lazy"
+    onerror="if(!this.dataset.f1){this.dataset.f1=1;this.src='https://picsum.photos/seed/${food.seed}/600/400';}">`;
+}
+
+// Single food card used in Food view + site detail "Local Food" block
+function foodCardHTML(f) {
+  const typeBadge = f.type === 'veg'
+    ? '<span class="food-type-badge veg">Veg</span>'
+    : '<span class="food-type-badge nonveg">Non-Veg</span>';
+  const spiceCls = f.spice === 'mild' ? 'mild' : (f.spice === 'medium' ? 'medium' : '');
+  return `<div class="food-card" data-type="${f.type}" data-cat="${f.cat}">
+    <div class="food-img">${foodImgTag(f)}${typeBadge}<span class="food-cat-badge">${f.cat}</span></div>
+    <div class="food-info">
+      <h3>${f.name}</h3>
+      <div class="food-site"><i class="fa-solid fa-location-dot"></i> ${f.site}</div>
+      <p class="food-desc">${f.desc}</p>
+      <div class="food-meta">
+        <span class="food-price">${f.price}</span>
+        <span class="food-spice ${spiceCls}"><i class="fa-solid fa-fire"></i> ${f.spiceLabel}</span>
+      </div>
+    </div>
+  </div>`;
 }
 
 // ── MAIN ──────────────────────────────────────────────
@@ -280,6 +386,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   navBtns.forEach(btn => btn.addEventListener('click', () => switchView(btn.dataset.view)));
   $('goExploreBtn').addEventListener('click', () => switchView('exploreView'));
+  const goFoodBtn = $('goFoodBtn');
+  if (goFoodBtn) goFoodBtn.addEventListener('click', () => switchView('foodView'));
+
+  // Food grid + category filters
+  let foodFilter = 'all';
+  function buildFoodGrid() {
+    const grid = $('foodGrid');
+    if (!grid || typeof FOODS === 'undefined') return;
+    const items = FOODS.filter(f =>
+      foodFilter === 'all' ? true :
+      foodFilter === 'veg' ? f.type === 'veg' :
+      foodFilter === 'nonveg' ? f.type === 'nonveg' :
+      f.cat === foodFilter);
+    grid.innerHTML = items.length
+      ? items.map(foodCardHTML).join('')
+      : '<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:30px;">No dishes in this category yet.</p>';
+  }
+  document.querySelectorAll('.food-filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.food-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      foodFilter = btn.dataset.filter;
+      buildFoodGrid();
+    });
+  });
 
   // ── SLIDER ARROWS ────────────────────────────────
   $('sliderLeft').addEventListener('click',  () => sliderTrack.scrollBy({ left: -320, behavior:'smooth' }));
@@ -353,6 +484,16 @@ document.addEventListener('DOMContentLoaded', () => {
         </button>
       </div>`).join('');
 
+    // Local food for this site: match by site name/region keywords, else show 3 popular picks
+    const siteKeys = (site.name + ' ' + site.location).toLowerCase();
+    let localFoods = FOODS.filter(f => {
+      const s = f.site.toLowerCase();
+      return siteKeys.split(/[\s,·]+/).some(w => w.length > 3 && s.includes(w)) ||
+             s.split(/[\s,·]+/).some(w => w.length > 3 && siteKeys.includes(w));
+    });
+    if (localFoods.length === 0) localFoods = FOODS.slice(0, 3);
+    const foodsHTML = localFoods.slice(0, 3).map(foodCardHTML).join('');
+
     siteDetail.innerHTML = `
       <button class="back-btn" id="backBtn">
         <i class="fa-solid fa-arrow-left"></i> All Heritage Sites
@@ -390,6 +531,10 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="guides-section">
         <h3><i class="fa-solid fa-user-tie"></i> Local Guides & Travellers</h3>
         <div class="guides-grid">${guidesHTML}</div>
+      </div>
+      <div class="guides-section" style="margin-top:22px;">
+        <h3><i class="fa-solid fa-utensils"></i> Local Food Near ${site.name}</h3>
+        <div class="food-grid">${foodsHTML}</div>
       </div>`;
 
     // Back to grid button
@@ -457,5 +602,6 @@ document.addEventListener('DOMContentLoaded', () => {
   buildSiteCards();
   buildRankedList();
   buildReviews();
+  buildFoodGrid();
   switchView('dashboardView'); // Dashboard is the default screen
 });

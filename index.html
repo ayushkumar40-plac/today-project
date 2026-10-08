@@ -31,6 +31,9 @@
             <button class="nav-btn" data-view="travellersView">
                 <i class="fa-solid fa-users"></i><span>Travellers</span>
             </button>
+            <button class="nav-btn" data-view="foodView">
+                <i class="fa-solid fa-utensils"></i><span>Food & Cuisine</span>
+            </button>
         </nav>
 
         <div class="sidebar-sites-wrap" id="sidebarSitesWrap">
@@ -49,7 +52,10 @@
                     <div class="dash-hero-text">
                         <h1>Welcome to <span>Heritage India</span></h1>
                         <p>Discover 20 UNESCO-recognised Indian heritage sites, read their story, and connect with expert local guides.</p>
-                        <button class="btn-primary" id="goExploreBtn"><i class="fa-solid fa-compass"></i> Explore Heritage Sites</button>
+                        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                            <button class="btn-primary" id="goExploreBtn"><i class="fa-solid fa-compass"></i> Explore Heritage Sites</button>
+                            <button class="btn-primary" id="goFoodBtn" style="background:var(--gold);"><i class="fa-solid fa-utensils"></i> Explore Local Food</button>
+                        </div>
                     </div>
                     <div class="dash-hero-img">
                         <img src="sites/taj-mahal.jpg" alt="Taj Mahal" onerror="this.src='https://picsum.photos/seed/tajmahal/600/400'">
@@ -120,6 +126,24 @@
                     <p>Real stories from explorers who've walked these ancient paths</p>
                 </div>
                 <div class="reviews-grid" id="reviewsGrid"></div>
+            </div>
+        </div>
+
+        <!-- ===== FOOD & CUISINE ===== -->
+        <div class="view" id="foodView">
+            <div class="view-scroll">
+                <div class="page-hdr">
+                    <h1><i class="fa-solid fa-utensils" style="color:var(--saffron)"></i> Food & Cuisine Near Heritage Sites</h1>
+                    <p>Must-try regional dishes, street food and local flavours at every destination</p>
+                </div>
+                <div class="food-filter-row" id="foodFilterRow">
+                    <button class="food-filter active" data-filter="all">All</button>
+                    <button class="food-filter" data-filter="veg"><i class="fa-solid fa-leaf"></i> Veg</button>
+                    <button class="food-filter" data-filter="nonveg">Non-Veg</button>
+                    <button class="food-filter" data-filter="street">Street Food</button>
+                    <button class="food-filter" data-filter="sweet">Sweets</button>
+                </div>
+                <div class="food-grid" id="foodGrid"></div>
             </div>
         </div>
 
