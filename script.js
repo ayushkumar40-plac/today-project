@@ -309,15 +309,135 @@ const FOODS = [
 ];
 
 const REVIEWS = [
-  { name:'Arjun Patel',      av:'https://i.pravatar.cc/150?img=11', visited:'Taj Mahal',          stars:5, text:'Visiting at sunrise was beyond words. The marble changes colour with the light — go early, avoid the crowds, give yourself at least 2 hours to soak it in.' },
-  { name:'Sneha Sharma',     av:'https://i.pravatar.cc/150?img=22', visited:'Ajanta Caves',        stars:5, text:'The painted frescos have survived 2,000 years and still radiate life. Our guide knew astonishing detail about every painting.' },
-  { name:'James Mitchell',   av:'https://i.pravatar.cc/150?img=16', visited:'Hampi Monuments',     stars:5, text:'Renting a bicycle at sunrise and cycling through the ruins alone — the single most magical morning of my life.' },
-  { name:'Priya Nair',       av:'https://i.pravatar.cc/150?img=40', visited:'Mahabalipuram',       stars:4, text:'The Shore Temple at golden hour with waves crashing behind it — one of the most photogenic scenes I have ever captured.' },
-  { name:'David Chen',       av:'https://i.pravatar.cc/150?img=20', visited:'Ellora Caves',        stars:5, text:'The Kailasa Temple defies belief. Carved from a single mountain, top-down, without drawings — it questions what humans are capable of.' },
-  { name:'Fatima Al-Rashid', av:'https://i.pravatar.cc/150?img=34', visited:'Red Fort',            stars:4, text:'The sheer scale of the fort is humbling. The Sound & Light show in the evening is theatrical and beautifully narrated.' },
-  { name:'Rohan Kapoor',     av:'https://i.pravatar.cc/150?img=36', visited:'Rani ki Vav',        stars:5, text:'I had never heard of a stepwell and I was not prepared for this. Descending into those levels of intricate sculptures felt like another dimension.' },
-  { name:'Maria Gomez',      av:'https://i.pravatar.cc/150?img=56', visited:'Churches of Goa',     stars:5, text:'The Basilica of Bom Jesus has the most serene atmosphere I have experienced in any religious monument globally. Simply humbling.' },
-  { name:'Ananya Misra',     av:'https://i.pravatar.cc/150?img=44', visited:'Jantar Mantar',       stars:4, text:'A scientific marvel masquerading as an art installation. Our guide showed how the sundial tells time accurate to 2 seconds — speechless.' },
+  { name:'Arjun Patel', av:'https://i.pravatar.cc/150?img=11', visited:'Taj Mahal', stars:5, text:'Visiting at sunrise was beyond words. The marble changes colour with the light.' },
+  { name:'Sneha Sharma', av:'https://i.pravatar.cc/150?img=22', visited:'Ajanta Caves', stars:5, text:'The painted frescos have survived 2,000 years and still radiate life.' },
+  { name:'James Mitchell', av:'https://i.pravatar.cc/150?img=16', visited:'Hampi Monuments', stars:5, text:'Cycling through the ruins at sunrise — the most magical morning of my life.' },
+  { name:'Priya Nair', av:'https://i.pravatar.cc/150?img=40', visited:'Mahabalipuram', stars:4, text:'The Shore Temple at golden hour is one of the most photogenic scenes ever.' },
+  { name:'David Chen', av:'https://i.pravatar.cc/150?img=20', visited:'Ellora Caves', stars:5, text:'The Kailasa Temple defies belief. Carved from a single mountain, top-down.' },
+  { name:'Fatima Al-Rashid', av:'https://i.pravatar.cc/150?img=34', visited:'Red Fort', stars:4, text:'The sheer scale of the fort is humbling. The evening show is beautifully narrated.' },
+  { name:'Rohan Kapoor', av:'https://i.pravatar.cc/150?img=36', visited:'Rani ki Vav', stars:5, text:'Descending into those levels of sculptures felt like another dimension.' },
+  { name:'Maria Gomez', av:'https://i.pravatar.cc/150?img=56', visited:'Churches of Goa', stars:5, text:'The Basilica of Bom Jesus has the most serene atmosphere. Simply humbling.' },
+  { name:'Ananya Misra', av:'https://i.pravatar.cc/150?img=44', visited:'Jantar Mantar', stars:4, text:'A scientific marvel masquerading as art. The sundial is accurate to 2 seconds.' },
+];
+
+// ── CULTURE DATA ── (cat: dance | music | craft | art)
+const CULTURES = [
+  { seed:'kathak-up', name:'Kathak Dance', cat:'dance', region:'Agra · Uttar Pradesh',
+    img:'https://images.unsplash.com/photo-1547153760-18fc86324498?w=600&q=80',
+    desc:'Mughal-court storytelling dance of spins, footwork and expressive abhinaya — still taught in Agra gharanas.' },
+  { seed:'qawwali-delhi', name:'Qawwali Nights', cat:'music', region:'Delhi · Nizamuddin',
+    img:'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&q=80',
+    desc:'Soulful Sufi devotional music every Thursday at Hazrat Nizamuddin Dargah, minutes from Humayun-linked Delhi.' },
+  { seed:'zardozi-agra', name:'Zardozi Embroidery', cat:'craft', region:'Agra · Uttar Pradesh',
+    img:'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=80',
+    desc:'Gold-thread Mughal embroidery on silk and velvet — Agra workshops still supply bridal couture worldwide.' },
+  { seed:'marble-agra', name:'Pietra Dura Inlay', cat:'craft', region:'Agra · Taj Ganj',
+    img:'https://images.unsplash.com/photo-1564507592208-0270e5a8fc55?w=600&q=80',
+    desc:'The same floral stone-inlay craft as the Taj Mahal — watch artisans cut jasper and carnelian by hand.' },
+  { seed:'lavani-maha', name:'Lavani Folk Dance', cat:'dance', region:'Maharashtra · Aurangabad',
+    img:'https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=600&q=80',
+    desc:'High-energy Maharashtrian folk dance with dholki beats — performed at Ellora festival nights.' },
+  { seed:'ajanta-art', name:'Ajanta Mural Art', cat:'art', region:'Aurangabad · Maharashtra',
+    img:'https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=600&q=80',
+    desc:'2,000-year-old Buddhist fresco techniques — natural pigments, lamp-black outlines — revived in local studios.' },
+  { seed:'bharata-tn', name:'Bharatanatyam', cat:'dance', region:'Tamil Nadu · Mamallapuram',
+    img:'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80',
+    desc:'Fire-dance of the Chola temples — geometric poses and rhythmic storytelling, performed at the Shore Temple fest.' },
+  { seed:'nadaswaram-tn', name:'Nadaswaram & Thavil', cat:'music', region:'Tamil Nadu · Thanjavur',
+    img:'https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=600&q=80',
+    desc:'Auspicious temple wind music of the Chola heartland — heard at dawn rituals in Brihadeeswara Temple.' },
+  { seed:'tanja craft placeholder', name:'Thanjavur Painting', cat:'craft', region:'Thanjavur · Tamil Nadu',
+    img:'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&q=80',
+    desc:'Gold-foil deity paintings born under Chola patronage — dense colours, glass beads and gesso relief work.' },
+  { seed:'baul-bihar', name:'Baul & Folk Songs', cat:'music', region:'Bodh Gaya · Bihar',
+    img:'https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=600&q=80',
+    desc:'Mystic minstrel songs of the Gangetic plains — ektara melodies at Bodh Gaya meditation gatherings.' },
+  { seed:'madhubani-art', name:'Madhubani Painting', cat:'art', region:'Bihar · Madhubani',
+    img:'https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=600&q=80',
+    desc:'Geometric fish, peacocks and tree-of-life motifs painted with bamboo sticks — GI-tagged heritage art.' },
+  { seed:'kathakali-note', name:'Kathakali & Theyyam', cat:'dance', region:'Goa · Coastal Circuit',
+    img:'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&q=80',
+    desc:'Though Keralan, these face-painted dance-dramas tour Goa churches circuit every winter festival season.' },
+];
+
+// ── FESTIVAL DATA ── (quarter: jan-mar | apr-jun | jul-sep | oct-dec)
+const FESTIVALS = [
+  { seed:'taj-mahotsav', name:'Taj Mahotsav', place:'Agra, Uttar Pradesh', month:'February', quarter:'jan-mar',
+    img:'https://images.unsplash.com/photo-1564507592208-0270e5a8fc55?w=600&q=80',
+    desc:'10-day Mughal-era carnival of crafts, qawwali, kathak and food near the Taj — the best week to visit Agra.' },
+  { seed:'holi-agra', name:'Holi in Braj', place:'Mathura · Near Agra', month:'March', quarter:'jan-mar',
+    img:'https://images.unsplash.com/photo-1576089172869-4f5f6f315620?w=600&q=80',
+    desc:'Phoolon-wali Holi and lathmar revelry in Krishna\u2019s land — pair it with a Taj sunrise trip.' },
+  { seed:'kite-jaipur', name:'Kite Festival', place:'Jaipur, Rajasthan', month:'January', quarter:'jan-mar',
+    img:'https://images.unsplash.com/photo-1602631985686-1bb0e6a8696e?w=600&q=80',
+    desc:'Makar Sankranti skies over the Pink City fill with duelling kites — visible from Jantar Mantar terraces.' },
+  { seed:'ellora-fest', name:'Ellora Festival', place:'Aurangabad, Maharashtra', month:'March', quarter:'jan-mar',
+    img:'https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=600&q=80',
+    desc:'Classical dance and music staged against the floodlit Kailasa Temple — a bucket-list night.' },
+  { seed:'buddha-purnima', name:'Buddha Purnima', place:'Bodh Gaya, Bihar', month:'May', quarter:'apr-jun',
+    img:'https://images.unsplash.com/photo-1548013146-72479768bada?w=600&q=80',
+    desc:'Butter-lamp processions and chanting under the Bodhi Tree on the Buddha\u2019s birth-enlightenment day.' },
+  { seed:'rath-konark', name:'Chandrabhaga Fair', place:'Konark, Odisha', month:'February', quarter:'jan-mar',
+    img:'https://images.unsplash.com/photo-1601334674063-22684b0d1e57?w=600&q=80',
+    desc:'Pilgrims greet the rising sun at the Sun Temple; the Konark Dance Festival follows in December.' },
+  { seed:'hampi-utsav', name:'Hampi Utsav', place:'Hampi, Karnataka', month:'January', quarter:'jan-mar',
+    img:'https://images.unsplash.com/photo-1620766182966-c6eb5ed2b788?w=600&q=80',
+    desc:'Vijayanagara glory revived — torch-lit processions, puppet shows and concerts among the boulders.' },
+  { seed:'mamalla-fest', name:'Mamallapuram Dance Fest', place:'Mahabalipuram, Tamil Nadu', month:'December', quarter:'oct-dec',
+    img:'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80',
+    desc:'Open-air Bharatanatyam and Kuchipudi before the Shore Temple as waves crash behind the stage.' },
+  { seed:'diwali-agra', name:'Diwali & Dev Deepawali', place:'Agra · Varanasi circuit', month:'October/November', quarter:'oct-dec',
+    img:'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=600&q=80',
+    desc:'The Taj framed by fireworks; extend to Varanasi\u2019s Dev Deepawali ghats lit with a million diyas.' },
+  { seed:'goa-carnival', name:'Goa Carnival', place:'Panaji · Old Goa', month:'February', quarter:'jan-mar',
+    img:'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600&q=80',
+    desc:'Portuguese-era street floats, samba and feni — the liveliest week around the Churches of Goa.' },
+  { seed:'teej-jaipur', name:'Teej & Gangaur', place:'Jaipur, Rajasthan', month:'August', quarter:'jul-sep',
+    img:'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=600&q=80',
+    desc:'Monsoon queens\u2019 processions with bedecked elephants pass near Jantar Mantar — swing-festival joy.' },
+  { seed:'navratri-guj', name:'Navratri Garba', place:'Patan · Gujarat', month:'October', quarter:'oct-dec',
+    img:'https://images.unsplash.com/photo-1604608672516-f1b9b1d37076?w=600&q=80',
+    desc:'Nine nights of garba-dandiya in chaniya cholis — pair with a dawn visit to Rani ki Vav.' },
+];
+
+// ── HOTEL DATA ── (price = per night in Rs)
+const HOTELS = [
+  { seed:'oberoi-amarvilas', name:'The Oberoi Amarvilas', dest:'Agra', area:'Near Taj Mahal', price:28000, rating:4.9, tag:'Luxury Palace',
+    img:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80',
+    amenities:['Taj view rooms','Spa','Fine dining','Pool'] },
+  { seed:'tajview-agra', name:'Taj View Homestay', dest:'Agra', area:'Taj Ganj', price:2400, rating:4.4, tag:'Budget',
+    img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&q=80',
+    amenities:['Rooftop Taj view','Breakfast','WiFi'] },
+  { seed:'itc-maurya', name:'ITC Maurya', dest:'Delhi', area:'Chanakyapuri', price:14500, rating:4.8, tag:'Luxury',
+    img:'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&q=80',
+    amenities:['Spa','5 restaurants','Pool','Gym'] },
+  { seed:'haveli-delhi', name:'Haveli Dharampura', dest:'Delhi', area:'Chandni Chowk', price:6500, rating:4.6, tag:'Heritage Haveli',
+    img:'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80',
+    amenities:['Mughal architecture','Courtyard dining','Guided walks'] },
+  { seed:'lemon-aurangabad', name:'Lemon Tree Aurangabad', dest:'Aurangabad', area:'Near Ellora road', price:4200, rating:4.3, tag:'Mid-range',
+    img:'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&q=80',
+    amenities:['Pool','Restaurant','WiFi','Parking'] },
+  { seed:'toshali-konark', name:'Toshali Sands Resort', dest:'Konark', area:'Marine Drive, Puri-Konark', price:5800, rating:4.4, tag:'Beach Resort',
+    img:'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80',
+    amenities:['Private beach','Pool','Ayurveda','Kids club'] },
+  { seed:'heritage-hampi', name:'Heritage Resort Hampi', dest:'Hampi', area:'Vijayanagara road', price:3600, rating:4.2, tag:'Mid-range',
+    img:'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=600&q=80',
+    amenities:['Pool','Boulder views','Cycling','Breakfast'] },
+  { seed:'mamalla-beach', name:'Mamalla Beach Resort', dest:'Mahabalipuram', area:'Shore Temple road', price:7200, rating:4.5, tag:'Beach Resort',
+    img:'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80',
+    amenities:['Sea-facing rooms','Pool','Spa','Seafood grill'] },
+  { seed:'bodhi-bodhgaya', name:'Bodhi Tree Retreat', dest:'Bodh Gaya', area:'Near Mahabodhi Temple', price:2800, rating:4.3, tag:'Peaceful Stay',
+    img:'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=600&q=80',
+    amenities:['Meditation hall','Veg cafe','Garden','WiFi'] },
+  { seed:'samode-jaipur', name:'Samode Haveli', dest:'Jaipur', area:'Old City', price:12000, rating:4.7, tag:'Royal Haveli',
+    img:'https://images.unsplash.com/photo-1477587458883-47145ed94245?w=600&q=80',
+    amenities:['Frescoed suites','Courtyard pool','Folk evenings'] },
+  { seed:'zostel-jaipur', name:'Zostel Jaipur', dest:'Jaipur', area:'Near Hawa Mahal', price:900, rating:4.4, tag:'Backpacker',
+    img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&q=80',
+    amenities:['Dorms','Cafe','Rooftop','Tours desk'] },
+  { seed:'taj-goa', name:'Taj Exotica Goa', dest:'Goa', area:'Benaulim, South Goa', price:16500, rating:4.8, tag:'Luxury Resort',
+    img:'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&q=80',
+    amenities:['Beachfront','Infinity pool','Spa','Casino shuttle'] },
 ];
 
 // ── HELPERS ───────────────────────────────────────────
@@ -388,6 +508,12 @@ document.addEventListener('DOMContentLoaded', () => {
   $('goExploreBtn').addEventListener('click', () => switchView('exploreView'));
   const goFoodBtn = $('goFoodBtn');
   if (goFoodBtn) goFoodBtn.addEventListener('click', () => switchView('foodView'));
+  const goCultureBtn = $('goCultureBtn');
+  if (goCultureBtn) goCultureBtn.addEventListener('click', () => switchView('cultureView'));
+  const goFestivalBtn = $('goFestivalBtn');
+  if (goFestivalBtn) goFestivalBtn.addEventListener('click', () => switchView('festivalsView'));
+  const goHotelBtn = $('goHotelBtn');
+  if (goHotelBtn) goHotelBtn.addEventListener('click', () => switchView('hotelsView'));
 
   // Food grid + category filters
   let foodFilter = 'all';
@@ -403,12 +529,72 @@ document.addEventListener('DOMContentLoaded', () => {
       ? items.map(foodCardHTML).join('')
       : '<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:30px;">No dishes in this category yet.</p>';
   }
-  document.querySelectorAll('.food-filter').forEach(btn => {
+  document.querySelectorAll('#foodFilterRow .food-filter').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.food-filter').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('#foodFilterRow .food-filter').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       foodFilter = btn.dataset.filter;
       buildFoodGrid();
+    });
+  });
+
+  // ── CULTURE GRID + FILTERS ─────────────────────────
+  let cultureFilter = 'all';
+  function buildCultureGrid() {
+    const grid = $('cultureGrid');
+    if (!grid || typeof CULTURES === 'undefined') return;
+    const items = CULTURES.filter(c => cultureFilter === 'all' ? true : c.cat === cultureFilter);
+    grid.innerHTML = items.length ? items.map(c => `
+      <div class="culture-card">
+        <div class="culture-img">
+          <img src="${c.img}" alt="${c.name}" loading="lazy"
+            onerror="if(!this.dataset.f1){this.dataset.f1=1;this.src='https://picsum.photos/seed/${c.seed}/600/400';}">
+          <span class="food-cat-badge">${c.cat}</span>
+        </div>
+        <div class="food-info">
+          <h3>${c.name}</h3>
+          <div class="food-site"><i class="fa-solid fa-location-dot"></i> ${c.region}</div>
+          <p class="food-desc">${c.desc}</p>
+        </div>
+      </div>`).join('')
+      : '<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:30px;">Nothing here yet.</p>';
+  }
+  document.querySelectorAll('#cultureFilterRow .food-filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#cultureFilterRow .food-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      cultureFilter = btn.dataset.filter;
+      buildCultureGrid();
+    });
+  });
+
+  // ── FESTIVAL TIMELINE + FILTERS ────────────────────
+  let festFilter = 'all';
+  function buildFestivalGrid() {
+    const grid = $('festivalGrid');
+    if (!grid || typeof FESTIVALS === 'undefined') return;
+    const items = FESTIVALS.filter(f => festFilter === 'all' ? true : f.quarter === festFilter);
+    grid.innerHTML = items.length ? items.map(f => `
+      <div class="fest-card">
+        <div class="fest-img">
+          <img src="${f.img}" alt="${f.name}" loading="lazy"
+            onerror="if(!this.dataset.f1){this.dataset.f1=1;this.src='https://picsum.photos/seed/${f.seed}/400/400';}">
+          <span class="fest-month"><i class="fa-solid fa-calendar-day"></i> ${f.month}</span>
+        </div>
+        <div class="fest-info">
+          <h3>${f.name}</h3>
+          <div class="food-site"><i class="fa-solid fa-location-dot"></i> ${f.place}</div>
+          <p class="food-desc">${f.desc}</p>
+        </div>
+      </div>`).join('')
+      : '<p style="color:var(--muted);text-align:center;padding:30px;">No festivals in this quarter.</p>';
+  }
+  document.querySelectorAll('#festivalFilterRow .food-filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#festivalFilterRow .food-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      festFilter = btn.dataset.filter;
+      buildFestivalGrid();
     });
   });
 
@@ -535,6 +721,11 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="guides-section" style="margin-top:22px;">
         <h3><i class="fa-solid fa-utensils"></i> Local Food Near ${site.name}</h3>
         <div class="food-grid">${foodsHTML}</div>
+      </div>
+      <div class="guides-section detail-cta-row">
+        <button class="btn-primary" data-goto="hotelsView"><i class="fa-solid fa-hotel"></i> Find Stays Near ${site.name}</button>
+        <button class="btn-primary" data-goto="festivalsView" style="background:var(--gold);"><i class="fa-solid fa-wand-magic-sparkles"></i> Festivals Here</button>
+        <button class="btn-primary" data-goto="cultureView" style="background:#7c2d12;"><i class="fa-solid fa-masks-theater"></i> Local Culture</button>
       </div>`;
 
     // Back to grid button
@@ -554,9 +745,159 @@ document.addEventListener('DOMContentLoaded', () => {
         bookingModal.classList.add('open');
       });
     });
+
+    // Detail-page cross links to new sections
+    siteDetail.querySelectorAll('[data-goto]').forEach(btn => {
+      btn.addEventListener('click', () => switchView(btn.dataset.goto));
+    });
   }
 
-  // ── MODAL ────────────────────────────────────────
+  // ── HOTELS: SEARCH + BOOKING ENGINE (part 1: grid) ─
+  const inr = n => 'Rs.' + n.toLocaleString('en-IN');
+  function nightsBetween(a, b) {
+    if (!a || !b) return 0;
+    const ms = new Date(b) - new Date(a);
+    return Math.round(ms / 86400000);
+  }
+  function hotelCardHTML(h) {
+    const stars = '★'.repeat(Math.round(h.rating)) + '☆'.repeat(5 - Math.round(h.rating));
+    return `<div class="hotel-card">
+      <div class="hotel-img">
+        <img src="${h.img}" alt="${h.name}" loading="lazy"
+          onerror="if(!this.dataset.f1){this.dataset.f1=1;this.src='https://picsum.photos/seed/${h.seed}/600/400';}">
+        <span class="hotel-tag">${h.tag}</span>
+        <span class="hotel-rating"><i class="fa-solid fa-star"></i> ${h.rating}</span>
+      </div>
+      <div class="hotel-info">
+        <h3>${h.name}</h3>
+        <div class="food-site"><i class="fa-solid fa-location-dot"></i> ${h.area} · ${h.dest}</div>
+        <div class="hotel-stars">${stars}</div>
+        <div class="hotel-amenities">${h.amenities.map(a => `<span><i class="fa-solid fa-check"></i> ${a}</span>`).join('')}</div>
+        <div class="hotel-meta">
+          <div><span class="hotel-price">${inr(h.price)}</span><span class="hotel-per"> / night</span></div>
+          <button class="book-btn hotel-book-btn" data-seed="${h.seed}"><i class="fa-solid fa-bed"></i> Book Now</button>
+        </div>
+      </div>
+    </div>`;
+  }
+  function buildHotelGrid() {
+    const grid = $('hotelGrid');
+    if (!grid || typeof HOTELS === 'undefined') return;
+    const dest = $('hotelDest') ? $('hotelDest').value : 'all';
+    const list = HOTELS.filter(h => dest === 'all' ? true : h.dest === dest);
+    const n = nightsBetween($('hotelCheckin').value, $('hotelCheckout').value);
+    $('hotelResultsLine').textContent = list.length
+      ? `${list.length} stay(s) found${dest !== 'all' ? ' in ' + dest : ''}${n > 0 ? ` · ${n} night(s)` : ''}`
+      : 'No stays found for this destination.';
+    grid.innerHTML = list.length ? list.map(hotelCardHTML).join('')
+      : '<p class="empty-note">Try another destination.</p>';
+    grid.querySelectorAll('.hotel-book-btn').forEach(btn => {
+      btn.addEventListener('click', () => openHotelModal(btn.dataset.seed));
+    });
+  }
+  function fillHotelDests() {
+    const sel = $('hotelDest');
+    if (!sel || typeof HOTELS === 'undefined') return;
+    [...new Set(HOTELS.map(h => h.dest))].sort().forEach(d => {
+      const o = document.createElement('option');
+      o.value = d; o.textContent = d;
+      sel.appendChild(o);
+    });
+  }
+  // ── HOTEL BOOKINGS (saved in browser) ──────────────
+  function getBookings() {
+    try { return JSON.parse(localStorage.getItem('heritageBookings') || '[]'); }
+    catch (e) { return []; }
+  }
+  function saveBookings(b) {
+    try { localStorage.setItem('heritageBookings', JSON.stringify(b)); } catch (e) {}
+  }
+  function renderBookings() {
+    const box = $('bookingsList');
+    if (!box) return;
+    const all = getBookings();
+    $('bookingCount').textContent = all.length;
+    box.innerHTML = all.length ? all.map(b => `
+      <div class="booking-row">
+        <div class="booking-ic"><i class="fa-solid fa-hotel"></i></div>
+        <div style="flex:1;">
+          <strong>${b.hotel}</strong>
+          <div class="booking-sub">${b.checkin} to ${b.checkout} · ${b.rooms} room(s) · ${b.guests} guest(s)</div>
+          <div class="booking-sub">Booked by ${b.name} · ID ${b.id}</div>
+        </div>
+        <div class="booking-total">${inr(b.total)}</div>
+        <button class="booking-cancel" data-id="${b.id}"><i class="fa-solid fa-trash"></i></button>
+      </div>`).join('')
+      : '<p class="empty-note">No bookings yet — your confirmed stays will appear here.</p>';
+    box.querySelectorAll('.booking-cancel').forEach(btn => {
+      btn.addEventListener('click', () => {
+        saveBookings(getBookings().filter(b => b.id !== btn.dataset.id));
+        renderBookings();
+      });
+    });
+  }
+  // ── HOTEL MODAL: open / live total / confirm ───────
+  let currentHotel = null;
+  function hotelTotal() {
+    if (!currentHotel) return 0;
+    const n = nightsBetween($('bookCheckin').value, $('bookCheckout').value) || 1;
+    const rooms = parseInt($('bookRooms').value || '1', 10);
+    return currentHotel.price * n * rooms;
+  }
+  function refreshHotelTotal() {
+    $('hotelTotal').textContent = currentHotel ? inr(hotelTotal()) : '—';
+  }
+  function openHotelModal(seed) {
+    currentHotel = HOTELS.find(h => h.seed === seed);
+    if (!currentHotel) return;
+    $('hotelSuccess').style.display = 'none';
+    document.querySelector('.hotel-form').style.display = 'block';
+    $('hotelModalTitle').textContent = currentHotel.name;
+    $('hotelModalSummary').innerHTML =
+      `<span><i class="fa-solid fa-location-dot"></i> ${currentHotel.area} · ${currentHotel.dest}</span>
+       <span><i class="fa-solid fa-star"></i> ${currentHotel.rating} · ${inr(currentHotel.price)}/night</span>`;
+    $('hotelErr').textContent = '';
+    if ($('hotelCheckin').value) $('bookCheckin').value = $('hotelCheckin').value;
+    if ($('hotelCheckout').value) $('bookCheckout').value = $('hotelCheckout').value;
+    refreshHotelTotal();
+    $('hotelModal').classList.add('open');
+  }
+  ['bookCheckin', 'bookCheckout', 'bookRooms'].forEach(id => {
+    const el = $(id);
+    if (el) el.addEventListener('change', refreshHotelTotal);
+  });
+  function closeHotelModal() { $('hotelModal').classList.remove('open'); }
+  $('hotelModalClose').addEventListener('click', closeHotelModal);
+  $('hotelDoneBtn').addEventListener('click', closeHotelModal);
+  $('hotelModal').addEventListener('click', e => { if (e.target === $('hotelModal')) closeHotelModal(); });
+  $('hotelConfirmBtn').addEventListener('click', () => {
+    const name = $('guestName').value.trim();
+    const phone = $('guestPhone').value.trim();
+    const ci = $('bookCheckin').value, co = $('bookCheckout').value;
+    const err = $('hotelErr');
+    if (!name) { err.textContent = 'Please enter your full name.'; return; }
+    if (!phone || phone.replace(/\D/g, '').length < 8) { err.textContent = 'Please enter a valid phone number.'; return; }
+    if (!ci || !co || nightsBetween(ci, co) <= 0) { err.textContent = 'Please pick valid check-in / check-out dates.'; return; }
+    err.textContent = '';
+    const b = {
+      id: 'HI-' + Date.now().toString(36).toUpperCase(),
+      hotel: currentHotel.name, name, phone,
+      checkin: ci, checkout: co,
+      rooms: $('bookRooms').value, guests: $('bookGuests').value,
+      total: hotelTotal()
+    };
+    const all = getBookings(); all.unshift(b); saveBookings(all);
+    renderBookings();
+    document.querySelector('.hotel-form').style.display = 'none';
+    $('hotelSuccess').style.display = 'block';
+    $('hotelBookingId').textContent = b.id;
+    $('hotelSuccessMsg').innerHTML = `<strong>${b.hotel}</strong><br>${b.checkin} to ${b.checkout} · ${b.rooms} room(s) · Total <strong>${inr(b.total)}</strong>`;
+  });
+  if ($('hotelSearchBtn')) $('hotelSearchBtn').addEventListener('click', buildHotelGrid);
+  if ($('hotelDest')) $('hotelDest').addEventListener('change', buildHotelGrid);
+  // __HOTEL_PART2__
+
+  // ── GUIDE BOOKING MODAL (existing feature) ─────────
   function closeModal() { bookingModal.classList.remove('open'); }
   $('modalClose').addEventListener('click', closeModal);
   $('modalOkBtn').addEventListener('click', closeModal);
@@ -603,5 +944,21 @@ document.addEventListener('DOMContentLoaded', () => {
   buildRankedList();
   buildReviews();
   buildFoodGrid();
+  buildCultureGrid();
+  buildFestivalGrid();
+  fillHotelDests();
+  buildHotelGrid();
+  renderBookings();
+  // Default search dates: today + 7 / + 9
+  try {
+    const t = new Date(); const f = d => d.toISOString().slice(0, 10);
+    const ci = new Date(t); ci.setDate(ci.getDate() + 7);
+    const co = new Date(t); co.setDate(co.getDate() + 9);
+    if ($('hotelCheckin') && !$('hotelCheckin').value) $('hotelCheckin').value = f(ci);
+    if ($('hotelCheckout') && !$('hotelCheckout').value) $('hotelCheckout').value = f(co);
+    if ($('bookCheckin')) $('bookCheckin').value = f(ci);
+    if ($('bookCheckout')) $('bookCheckout').value = f(co);
+  } catch (e) {}
+  buildHotelGrid();
   switchView('dashboardView'); // Dashboard is the default screen
 });

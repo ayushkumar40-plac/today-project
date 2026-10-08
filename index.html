@@ -34,6 +34,15 @@
             <button class="nav-btn" data-view="foodView">
                 <i class="fa-solid fa-utensils"></i><span>Food & Cuisine</span>
             </button>
+            <button class="nav-btn" data-view="cultureView">
+                <i class="fa-solid fa-masks-theater"></i><span>Culture & Heritage</span>
+            </button>
+            <button class="nav-btn" data-view="festivalsView">
+                <i class="fa-solid fa-wand-magic-sparkles"></i><span>Festivals</span>
+            </button>
+            <button class="nav-btn" data-view="hotelsView">
+                <i class="fa-solid fa-hotel"></i><span>Hotels & Stay</span>
+            </button>
         </nav>
 
         <div class="sidebar-sites-wrap" id="sidebarSitesWrap">
@@ -55,6 +64,11 @@
                         <div style="display:flex;gap:10px;flex-wrap:wrap;">
                             <button class="btn-primary" id="goExploreBtn"><i class="fa-solid fa-compass"></i> Explore Heritage Sites</button>
                             <button class="btn-primary" id="goFoodBtn" style="background:var(--gold);"><i class="fa-solid fa-utensils"></i> Explore Local Food</button>
+                        </div>
+                        <div class="hero-quicklinks">
+                            <button class="btn-ghost" id="goCultureBtn"><i class="fa-solid fa-masks-theater"></i> Culture</button>
+                            <button class="btn-ghost" id="goFestivalBtn"><i class="fa-solid fa-wand-magic-sparkles"></i> Festivals</button>
+                            <button class="btn-ghost" id="goHotelBtn"><i class="fa-solid fa-hotel"></i> Book Stay</button>
                         </div>
                     </div>
                     <div class="dash-hero-img">
@@ -147,10 +161,89 @@
             </div>
         </div>
 
+        <!-- ===== CULTURE & HERITAGE ===== -->
+        <div class="view" id="cultureView">
+            <div class="view-scroll">
+                <div class="page-hdr">
+                    <h1><i class="fa-solid fa-masks-theater" style="color:var(--saffron)"></i> Culture & Heritage of India</h1>
+                    <p>Classical arts, crafts, dance, music and living traditions tied to our heritage cities</p>
+                </div>
+                <div class="food-filter-row" id="cultureFilterRow">
+                    <button class="food-filter active" data-filter="all">All</button>
+                    <button class="food-filter" data-filter="dance">Dance</button>
+                    <button class="food-filter" data-filter="music">Music</button>
+                    <button class="food-filter" data-filter="craft">Craft</button>
+                    <button class="food-filter" data-filter="art">Art & Theatre</button>
+                </div>
+                <div class="culture-grid" id="cultureGrid"></div>
+            </div>
+        </div>
+
+        <!-- ===== FESTIVALS ===== -->
+        <div class="view" id="festivalsView">
+            <div class="view-scroll">
+                <div class="page-hdr">
+                    <h1><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--saffron)"></i> Festivals of India</h1>
+                    <p>Plan your heritage trip around the grandest celebrations of the year</p>
+                </div>
+                <div class="food-filter-row" id="festivalFilterRow">
+                    <button class="food-filter active" data-filter="all">All Year</button>
+                    <button class="food-filter" data-filter="jan-mar">Jan – Mar</button>
+                    <button class="food-filter" data-filter="apr-jun">Apr – Jun</button>
+                    <button class="food-filter" data-filter="jul-sep">Jul – Sep</button>
+                    <button class="food-filter" data-filter="oct-dec">Oct – Dec</button>
+                </div>
+                <div class="festival-timeline" id="festivalGrid"></div>
+            </div>
+        </div>
+
+        <!-- ===== HOTELS & STAY ===== -->
+        <div class="view" id="hotelsView">
+            <div class="view-scroll">
+                <div class="page-hdr">
+                    <h1><i class="fa-solid fa-hotel" style="color:var(--saffron)"></i> Hotels & Stay Near Heritage Sites</h1>
+                    <p>Handpicked stays — from royal palaces to budget comfort — with instant booking</p>
+                </div>
+                <div class="hotel-searchbar">
+                    <div class="hotel-field">
+                        <label><i class="fa-solid fa-location-dot"></i> Destination</label>
+                        <select id="hotelDest">
+                            <option value="all">All destinations</option>
+                        </select>
+                    </div>
+                    <div class="hotel-field">
+                        <label><i class="fa-solid fa-calendar"></i> Check-in</label>
+                        <input type="date" id="hotelCheckin">
+                    </div>
+                    <div class="hotel-field">
+                        <label><i class="fa-solid fa-calendar-check"></i> Check-out</label>
+                        <input type="date" id="hotelCheckout">
+                    </div>
+                    <div class="hotel-field">
+                        <label><i class="fa-solid fa-user-group"></i> Guests</label>
+                        <select id="hotelGuests">
+                            <option value="1">1 Guest</option>
+                            <option value="2" selected>2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                            <option value="5">5+ Guests</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" id="hotelSearchBtn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                </div>
+                <div class="hotel-results-line" id="hotelResultsLine"></div>
+                <div class="hotel-grid" id="hotelGrid"></div>
+                <div class="bookings-panel">
+                    <h3><i class="fa-solid fa-suitcase-rolling"></i> My Bookings <span class="booking-count" id="bookingCount">0</span></h3>
+                    <div id="bookingsList"><p class="empty-note">No bookings yet — your confirmed stays will appear here.</p></div>
+                </div>
+            </div>
+        </div>
+
     </div><!-- /main -->
 </div><!-- /app -->
 
-<!-- BOOKING MODAL -->
+<!-- BOOKING MODAL (guides) -->
 <div class="modal-overlay" id="bookingModal">
     <div class="modal-box">
         <button class="modal-close" id="modalClose"><i class="fa-solid fa-xmark"></i></button>
@@ -158,6 +251,67 @@
         <h2>Booking Confirmed!</h2>
         <p id="modalMsg">Your guide has been booked.</p>
         <button class="btn-primary" id="modalOkBtn">Awesome, Thanks!</button>
+    </div>
+</div>
+
+<!-- HOTEL BOOKING MODAL -->
+<div class="modal-overlay" id="hotelModal">
+    <div class="modal-box hotel-modal-box">
+        <button class="modal-close" id="hotelModalClose"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-icon" style="color:var(--saffron)"><i class="fa-solid fa-hotel"></i></div>
+        <h2 id="hotelModalTitle">Book Your Stay</h2>
+        <div class="hotel-book-summary" id="hotelModalSummary"></div>
+        <div class="hotel-form">
+            <div class="hotel-form-row">
+                <div class="hotel-field">
+                    <label>Full Name</label>
+                    <input type="text" id="guestName" placeholder="e.g. Aarav Sharma">
+                </div>
+                <div class="hotel-field">
+                    <label>Phone</label>
+                    <input type="tel" id="guestPhone" placeholder="e.g. 98765 43210">
+                </div>
+            </div>
+            <div class="hotel-form-row">
+                <div class="hotel-field">
+                    <label>Check-in</label>
+                    <input type="date" id="bookCheckin">
+                </div>
+                <div class="hotel-field">
+                    <label>Check-out</label>
+                    <input type="date" id="bookCheckout">
+                </div>
+            </div>
+            <div class="hotel-form-row">
+                <div class="hotel-field">
+                    <label>Rooms</label>
+                    <select id="bookRooms">
+                        <option value="1">1 Room</option>
+                        <option value="2">2 Rooms</option>
+                        <option value="3">3 Rooms</option>
+                    </select>
+                </div>
+                <div class="hotel-field">
+                    <label>Guests</label>
+                    <select id="bookGuests">
+                        <option value="1">1 Guest</option>
+                        <option value="2" selected>2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4 Guests</option>
+                    </select>
+                </div>
+            </div>
+            <p class="hotel-err" id="hotelErr"></p>
+            <div class="hotel-total-row"><span>Total payable</span><strong id="hotelTotal">—</strong></div>
+            <button class="btn-primary hotel-confirm-btn" id="hotelConfirmBtn"><i class="fa-solid fa-circle-check"></i> Confirm Booking</button>
+        </div>
+        <div class="hotel-success" id="hotelSuccess" style="display:none;">
+            <div class="hotel-success-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <h3>Booking Confirmed!</h3>
+            <p id="hotelSuccessMsg"></p>
+            <p class="booking-id-line">Booking ID: <strong id="hotelBookingId"></strong></p>
+            <button class="btn-primary" id="hotelDoneBtn">Done</button>
+        </div>
     </div>
 </div>
 
