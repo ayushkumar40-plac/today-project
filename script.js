@@ -523,6 +523,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (goFestivalBtn) goFestivalBtn.addEventListener('click', () => switchView('festivalsView'));
   const goHotelBtn = $('goHotelBtn');
   if (goHotelBtn) goHotelBtn.addEventListener('click', () => switchView('hotelsView'));
+  const goContactBtn = $('goContactBtn');
+  if (goContactBtn) goContactBtn.addEventListener('click', () => switchView('contactView'));
 
   // ── TRAVEL COMPASS ─────────────────────────────────
   // Region of each site (derived from location) + vibe tags for planning.
@@ -1088,6 +1090,72 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ── CONTACT US ───────────────────────────────────
+  function getMessages() {
+    try { return JSON.parse(localStorage.getItem('heritageMessages') || '[]'); }
+    catch (e) { return []; }
+  }
+  function saveMessages(m) {
+    try { localStorage.setItem('heritageMessages', JSON.stringify(m)); } catch (e) {}
+  }
+  function renderMessages() {
+    const box = $('contactList');
+    if (!box) return;
+    const all = getMessages();
+    $('contactCount').textContent = all.length;
+    box.innerHTML = all.length ? all.map(m => `
+      <div class="booking-row">
+        <div class="booking-ic" style="background:#eff6ff;color:#2563eb;"><i class="fa-solid fa-envelope"></i></div>
+        <div style="flex:1;">
+          <strong>${m.topic}</strong>${m.site ? ` · ${m.site}` : ''}
+          <div class="booking-sub">${m.msg}</div>
+          <div class="booking-sub">By ${m.name} (${m.email}) · Ticket ${m.id}</div>
+        </div>
+        <button class="booking-cancel" data-id="${m.id}"><i class="fa-solid fa-trash"></i></button>
+      </div>`).join('')
+      : '<p class="empty-note">No messages yet.</p>';
+    box.querySelectorAll('.booking-cancel').forEach(btn => {
+      btn.addEventListener('click', () => {
+        saveMessages(getMessages().filter(m => m.id !== btn.dataset.id));
+        renderMessages();
+      });
+    });
+  }
+  function fillContactSites() {
+    const sel = $('contactSite');
+    if (!sel || typeof SITES === 'undefined') return;
+    SITES.forEach(s => {
+      const o = document.createElement('option');
+      o.value = s.name; o.textContent = s.name;
+      sel.appendChild(o);
+    });
+  }
+  const contactSendBtn = $('contactSendBtn');
+  if (contactSendBtn) contactSendBtn.addEventListener('click', () => {
+    const name = $('contactName').value.trim();
+    const email = $('contactEmail').value.trim();
+    const topic = $('contactTopic').value;
+    const site = $('contactSite').value;
+    const msg = $('contactMsg').value.trim();
+    const err = $('contactErr');
+    if (!name) { err.textContent = 'Please enter your name.'; return; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Please enter a valid email address.'; return; }
+    if (!msg || msg.length < 10) { err.textContent = 'Please write a message of at least 10 characters.'; return; }
+    err.textContent = '';
+    const m = {
+      id: 'MSG-' + Date.now().toString(36).toUpperCase(),
+      name, email, topic, site, msg,
+      at: new Date().toLocaleString()
+    };
+    const all = getMessages(); all.unshift(m); saveMessages(all);
+    renderMessages();
+    $('contactSuccess').style.display = 'block';
+    $('contactTicketId').textContent = m.id;
+    $('contactSuccessMsg').innerHTML = `Thanks <strong>${name}</strong>! Your message about <strong>${topic}</strong> is received. We reply within 24 hours at <strong>${email}</strong>.`;
+    $('contactName').value = ''; $('contactEmail').value = ''; $('contactMsg').value = '';
+    setTimeout(() => { $('contactSuccess').style.display = 'none'; }, 9000);
+  });
+
   // ── BOOT ─────────────────────────────────────────
   buildSiteCards();
   buildRankedList();
@@ -1098,6 +1166,8 @@ document.addEventListener('DOMContentLoaded', () => {
   fillHotelDests();
   buildHotelGrid();
   renderBookings();
+  fillContactSites();
+  renderMessages();
   // Default search dates: today + 7 / + 9
   try {
     const t = new Date(); const f = d => d.toISOString().slice(0, 10);

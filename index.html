@@ -53,6 +53,9 @@
             <button class="nav-btn" data-view="hotelsView">
                 <i class="fa-solid fa-hotel"></i><span>Hotels & Stay</span>
             </button>
+            <button class="nav-btn" data-view="contactView">
+                <i class="fa-solid fa-envelope"></i><span>Contact Us</span>
+            </button>
         </nav>
 
         <div class="sidebar-sites-wrap" id="sidebarSitesWrap">
@@ -80,6 +83,7 @@
                             <button class="btn-ghost" id="goCultureBtn"><i class="fa-solid fa-masks-theater"></i> Culture</button>
                             <button class="btn-ghost" id="goFestivalBtn"><i class="fa-solid fa-wand-magic-sparkles"></i> Festivals</button>
                             <button class="btn-ghost" id="goHotelBtn"><i class="fa-solid fa-hotel"></i> Book Stay</button>
+                            <button class="btn-ghost" id="goContactBtn"><i class="fa-solid fa-envelope"></i> Contact Us</button>
                         </div>
                     </div>
                     <div class="dash-hero-img">
@@ -301,6 +305,88 @@
                 <div class="bookings-panel">
                     <h3><i class="fa-solid fa-suitcase-rolling"></i> My Bookings <span class="booking-count" id="bookingCount">0</span></h3>
                     <div id="bookingsList"><p class="empty-note">No bookings yet — your confirmed stays will appear here.</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== CONTACT US (last section) ===== -->
+        <div class="view" id="contactView">
+            <div class="view-scroll">
+                <div class="page-hdr">
+                    <h1><i class="fa-solid fa-envelope" style="color:var(--saffron)"></i> Contact Us</h1>
+                    <p>Questions about a site, guide, booking or trail? We reply within 24 hours.</p>
+                </div>
+                <div class="contact-layout">
+                    <div class="contact-cards">
+                        <div class="contact-card">
+                            <div class="contact-ic" style="background:#fff5eb;color:#ea580c"><i class="fa-solid fa-location-dot"></i></div>
+                            <div><h3>Visit Us</h3><p>Heritage India, Janpath Bhawan,<br>Janpath, New Delhi 110001</p></div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-ic" style="background:#f0fdf4;color:#16a34a"><i class="fa-solid fa-phone"></i></div>
+                            <div><h3>Call Us</h3><p>+91 11 4000 1234<br>Mon–Sat, 9am–7pm IST</p></div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-ic" style="background:#fffbeb;color:#d97706"><i class="fa-solid fa-envelope"></i></div>
+                            <div><h3>Email Us</h3><p>hello@heritage-india.in<br>support@heritage-india.in</p></div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-ic" style="background:#eff6ff;color:#2563eb"><i class="fa-solid fa-share-nodes"></i></div>
+                            <div><h3>Follow Us</h3>
+                                <div class="social-row">
+                                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                                    <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form-card">
+                        <h3><i class="fa-solid fa-paper-plane"></i> Send a Message</h3>
+                        <div class="hotel-form-row">
+                            <div class="hotel-field">
+                                <label>Your Name</label>
+                                <input type="text" id="contactName" placeholder="e.g. Aarav Sharma">
+                            </div>
+                            <div class="hotel-field">
+                                <label>Email</label>
+                                <input type="email" id="contactEmail" placeholder="you@example.com">
+                            </div>
+                        </div>
+                        <div class="hotel-form-row">
+                            <div class="hotel-field">
+                                <label>Topic</label>
+                                <select id="contactTopic">
+                                    <option value="General question">General question</option>
+                                    <option value="Guide booking help">Guide booking help</option>
+                                    <option value="Hotel booking help">Hotel booking help</option>
+                                    <option value="Trail planning">Trail planning</option>
+                                    <option value="Feedback">Feedback</option>
+                                </select>
+                            </div>
+                            <div class="hotel-field">
+                                <label>Related Site (optional)</label>
+                                <select id="contactSite"><option value="">— None —</option></select>
+                            </div>
+                        </div>
+                        <div class="hotel-field" style="margin-bottom:10px;">
+                            <label>Message</label>
+                            <textarea id="contactMsg" rows="4" placeholder="Tell us how we can help..."></textarea>
+                        </div>
+                        <p class="hotel-err" id="contactErr"></p>
+                        <button class="btn-primary compass-plan-btn" id="contactSendBtn"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+                        <div class="hotel-success" id="contactSuccess" style="display:none;">
+                            <div class="hotel-success-icon"><i class="fa-solid fa-circle-check"></i></div>
+                            <h3>Message Sent!</h3>
+                            <p id="contactSuccessMsg"></p>
+                            <p class="booking-id-line">Ticket ID: <strong id="contactTicketId"></strong></p>
+                        </div>
+                        <div class="contact-history">
+                            <h4><i class="fa-solid fa-clock-rotate-left"></i> Your Messages <span class="booking-count" id="contactCount">0</span></h4>
+                            <div id="contactList"><p class="empty-note">No messages yet.</p></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
