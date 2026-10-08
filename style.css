@@ -1143,3 +1143,88 @@ h1, h2, h3 { letter-spacing:-.01em; }
     .booking-total { width:100%; text-align:right; }
     .trail-stop { flex-wrap:wrap; }
 }
+
+/* ======================================================
+   MOTION LAYER — pure animation, zero layout/visual change.
+   Only animates existing elements. Respects reduced-motion.
+   ====================================================== */
+@keyframes mo-rise   { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:none; } }
+@keyframes mo-fade   { from { opacity:0; } to { opacity:1; } }
+@keyframes mo-pop    { 0% { opacity:0; transform:scale(.94) translateY(10px); } 100% { opacity:1; transform:none; } }
+@keyframes mo-slideL { from { opacity:0; transform:translateX(-18px); } to { opacity:1; transform:none; } }
+@keyframes mo-shine  { from { transform:translateX(-120%) skewX(-18deg); } to { transform:translateX(240%) skewX(-18deg); } }
+@keyframes mo-floaty { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-7px); } }
+@keyframes mo-glowpulse { 0%,100% { box-shadow:0 10px 26px rgba(234,88,12,.5); } 50% { box-shadow:0 10px 34px rgba(245,158,11,.75); } }
+@keyframes mo-spinonce { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+
+/* View entrance */
+.view.active-view .view-scroll > * { animation:mo-rise .5s ease both; }
+.view.active-view .view-scroll > *:nth-child(2) { animation-delay:.06s; }
+.view.active-view .view-scroll > *:nth-child(3) { animation-delay:.12s; }
+.view.active-view .view-scroll > *:nth-child(4) { animation-delay:.18s; }
+
+/* Card stagger on every grid */
+.sites-grid > *, .food-grid > *, .culture-grid > *, .hotel-grid > *,
+.festival-timeline > *, .reviews-grid > *, .guides-grid > *,
+.trail-results > *, .dash-panels > *, .stats-row > * { animation:mo-pop .45s ease both; }
+.sites-grid > *:nth-child(3n+2), .food-grid > *:nth-child(3n+2),
+.culture-grid > *:nth-child(3n+2), .hotel-grid > *:nth-child(3n+2) { animation-delay:.07s; }
+.sites-grid > *:nth-child(3n), .food-grid > *:nth-child(3n),
+.culture-grid > *:nth-child(3n), .hotel-grid > *:nth-child(3n) { animation-delay:.14s; }
+
+/* Sidebar items cascade */
+.sidebar-nav .nav-btn { animation:mo-slideL .4s ease both; }
+.sidebar-nav .nav-btn:nth-child(2) { animation-delay:.04s; }
+.sidebar-nav .nav-btn:nth-child(3) { animation-delay:.08s; }
+.sidebar-nav .nav-btn:nth-child(4) { animation-delay:.12s; }
+.sidebar-nav .nav-btn:nth-child(5) { animation-delay:.16s; }
+.sidebar-nav .nav-btn:nth-child(6) { animation-delay:.2s; }
+.sidebar-nav .nav-btn:nth-child(7) { animation-delay:.24s; }
+.sidebar-nav .nav-btn:nth-child(8) { animation-delay:.28s; }
+
+/* Hero: shine sweep + floating image */
+.dash-hero { position:relative; }
+.dash-hero::after {
+    content:''; position:absolute; top:0; bottom:0; width:45%; left:0;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent);
+    animation:mo-shine 5.5s ease-in-out infinite;
+    pointer-events:none;
+}
+.dash-hero-img { animation:mo-floaty 5s ease-in-out infinite; }
+.dash-hero-img img { transition:transform .6s ease; }
+.dash-hero:hover .dash-hero-img img { transform:scale(1.05); }
+
+/* Buttons: press + sheen */
+.btn-primary, .book-btn, .trail-go, .slider-arrow { transition:transform .18s ease, box-shadow .25s ease, background .25s ease, filter .25s ease; }
+.btn-primary:active, .book-btn:active { transform:scale(.96); }
+.book-btn:hover, .trail-go:hover, .slider-arrow:hover { transform:translateY(-2px); }
+.food-filter, .chip { transition:transform .18s ease, background .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.food-filter:active, .chip:active { transform:scale(.93); }
+.food-filter.active, .chip.active { animation:mo-pop .3s ease; }
+
+/* Modal + booking feedback */
+.modal-overlay.open .modal-box { animation:mo-pop .38s cubic-bezier(.2,.9,.3,1.2) both; }
+.modal-overlay.open { animation:mo-fade .25s ease both; }
+.modal-icon { animation:mo-pop .5s .1s cubic-bezier(.2,.9,.3,1.4) both; }
+.hotel-success-icon { animation:mo-pop .5s cubic-bezier(.2,.9,.3,1.4) both; }
+
+/* Compass: FAB glow, needle glide, dial buttons */
+.mbn-fab { animation:mo-glowpulse 2.6s ease-in-out infinite; }
+.compass-needle { transition:transform 1s cubic-bezier(.2,.8,.25,1.1); }
+.cdir-btn { transition:transform .2s ease, background .25s ease, box-shadow .25s ease; }
+.cdir-btn:active { transform:scale(.88); animation:mo-spinonce .5s ease; }
+.compass-shuffle:active i { animation:mo-spinonce .5s ease; }
+.trail-stop { transition:transform .25s ease, box-shadow .25s ease; }
+.trail-stop:hover { transform:translateX(5px); }
+
+/* Slider auto-glide hint + detail hero zoom */
+.slider-track { scroll-behavior:smooth; }
+.slide-card { transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+.slide-card:active { transform:scale(.95); }
+.detail-hero img { transition:transform .8s ease; }
+.detail-hero:hover img { transform:scale(1.04); }
+
+/* Accessibility: honour reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation:none !important; transition:none !important; }
+}
