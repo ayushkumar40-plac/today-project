@@ -12,6 +12,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!-- Mobile top bar (phones/tablets only) -->
+<header class="mobile-topbar">
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+    <div class="mobile-brand"><i class="fa-solid fa-monument"></i> Heritage<em>India</em></div>
+    <button class="menu-btn" id="compassQuickBtn" aria-label="Open compass"><i class="fa-solid fa-compass"></i></button>
+</header>
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 <div id="app">
 
     <!-- SIDEBAR -->
@@ -33,6 +40,9 @@
             </button>
             <button class="nav-btn" data-view="foodView">
                 <i class="fa-solid fa-utensils"></i><span>Food & Cuisine</span>
+            </button>
+            <button class="nav-btn" data-view="compassView">
+                <i class="fa-solid fa-compass"></i><span>Travel Compass</span>
             </button>
             <button class="nav-btn" data-view="cultureView">
                 <i class="fa-solid fa-masks-theater"></i><span>Culture & Heritage</span>
@@ -66,6 +76,7 @@
                             <button class="btn-primary" id="goFoodBtn" style="background:var(--gold);"><i class="fa-solid fa-utensils"></i> Explore Local Food</button>
                         </div>
                         <div class="hero-quicklinks">
+                            <button class="btn-ghost" id="goCompassBtn"><i class="fa-solid fa-compass"></i> Travel Compass</button>
                             <button class="btn-ghost" id="goCultureBtn"><i class="fa-solid fa-masks-theater"></i> Culture</button>
                             <button class="btn-ghost" id="goFestivalBtn"><i class="fa-solid fa-wand-magic-sparkles"></i> Festivals</button>
                             <button class="btn-ghost" id="goHotelBtn"><i class="fa-solid fa-hotel"></i> Book Stay</button>
@@ -140,6 +151,60 @@
                     <p>Real stories from explorers who've walked these ancient paths</p>
                 </div>
                 <div class="reviews-grid" id="reviewsGrid"></div>
+            </div>
+        </div>
+
+        <!-- ===== TRAVEL COMPASS ===== -->
+        <div class="view" id="compassView">
+            <div class="view-scroll">
+                <div class="page-hdr">
+                    <h1><i class="fa-solid fa-compass" style="color:var(--saffron)"></i> Travel Compass</h1>
+                    <p>Point the needle, pick your vibe — we chart the perfect heritage trail</p>
+                </div>
+                <div class="compass-layout">
+                    <div class="compass-stage">
+                        <div class="compass-dial" id="compassDial">
+                            <div class="compass-ticks" id="compassTicks"></div>
+                            <span class="cdir c-n">N</span><span class="cdir c-e">E</span>
+                            <span class="cdir c-s">S</span><span class="cdir c-w">W</span>
+                            <button class="cdir-btn cdir-n" data-dir="north" title="North India">▲</button>
+                            <button class="cdir-btn cdir-e" data-dir="east" title="East India">▲</button>
+                            <button class="cdir-btn cdir-s" data-dir="south" title="South India">▲</button>
+                            <button class="cdir-btn cdir-w" data-dir="west" title="West India">▲</button>
+                            <button class="cdir-btn cdir-c" data-dir="any" title="Anywhere">◎</button>
+                            <div class="compass-needle" id="compassNeedle"></div>
+                            <div class="compass-pin"></div>
+                        </div>
+                        <div class="compass-readout"><span id="compassDirLabel">Anywhere</span><span id="compassDeg">0°</span></div>
+                        <button class="compass-shuffle" id="compassSpin"><i class="fa-solid fa-dice"></i> Surprise Me</button>
+                    </div>
+                    <div class="compass-side">
+                        <div class="trip-filters">
+                            <div class="trip-row">
+                                <label><i class="fa-solid fa-clock"></i> Trip length</label>
+                                <div class="chip-row" id="daysChips">
+                                    <button class="chip active" data-days="3">3 days</button>
+                                    <button class="chip" data-days="5">5 days</button>
+                                    <button class="chip" data-days="7">7 days</button>
+                                </div>
+                            </div>
+                            <div class="trip-row">
+                                <label><i class="fa-solid fa-heart"></i> Travel vibe</label>
+                                <div class="chip-row" id="vibeChips">
+                                    <button class="chip active" data-vibe="any"><i class="fa-solid fa-star"></i> Any</button>
+                                    <button class="chip" data-vibe="romantic"><i class="fa-solid fa-heart"></i> Romantic</button>
+                                    <button class="chip" data-vibe="spiritual"><i class="fa-solid fa-om"></i> Spiritual</button>
+                                    <button class="chip" data-vibe="adventure"><i class="fa-solid fa-person-hiking"></i> Adventure</button>
+                                    <button class="chip" data-vibe="family"><i class="fa-solid fa-people-roof"></i> Family</button>
+                                </div>
+                            </div>
+                            <button class="btn-primary compass-plan-btn" id="compassPlanBtn"><i class="fa-solid fa-route"></i> Plan My Trail</button>
+                        </div>
+                        <div class="trail-results" id="trailResults">
+                            <p class="empty-note">Choose a direction & vibe, then hit <strong>Plan My Trail</strong>.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -316,5 +381,14 @@
 </div>
 
 <script src="script.js"></script>
+
+<!-- Mobile bottom nav (phones only) -->
+<nav class="mobile-bottomnav" id="mobileBottomNav">
+    <button class="mbn-btn active" data-view="dashboardView"><i class="fa-solid fa-house"></i><span>Home</span></button>
+    <button class="mbn-btn" data-view="exploreView"><i class="fa-solid fa-compass"></i><span>Explore</span></button>
+    <button class="mbn-btn mbn-fab" data-view="compassView"><i class="fa-solid fa-location-arrow"></i></button>
+    <button class="mbn-btn" data-view="hotelsView"><i class="fa-solid fa-hotel"></i><span>Stays</span></button>
+    <button class="mbn-btn" data-view="foodView"><i class="fa-solid fa-utensils"></i><span>Food</span></button>
+</nav>
 </body>
 </html>

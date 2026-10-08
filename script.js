@@ -498,14 +498,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalMsg         = $('modalMsg');
 
   // ── VIEW SWITCHING ────────────────────────────────
+  // Sidebar buttons, phone bottom-nav buttons + hero quick links all sync here.
+  const mbnBtns = document.querySelectorAll('.mbn-btn');
   function switchView(viewId) {
     navBtns.forEach(b => b.classList.toggle('active', b.dataset.view === viewId));
+    mbnBtns.forEach(b => b.classList.toggle('active', b.dataset.view === viewId));
     views.forEach(v  => v.classList.toggle('active-view', v.id === viewId));
     sidebarSitesWrap.style.display = viewId === 'exploreView' ? 'flex' : 'none';
+    document.body.classList.remove('sidebar-open'); // auto-close phone drawer
   }
 
   navBtns.forEach(btn => btn.addEventListener('click', () => switchView(btn.dataset.view)));
+  mbnBtns.forEach(btn => btn.addEventListener('click', () => switchView(btn.dataset.view)));
   $('goExploreBtn').addEventListener('click', () => switchView('exploreView'));
+  const goCompassBtn = $('goCompassBtn');
+  if (goCompassBtn) goCompassBtn.addEventListener('click', () => switchView('compassView'));
+  const compassQuickBtn = $('compassQuickBtn');
+  if (compassQuickBtn) compassQuickBtn.addEventListener('click', () => switchView('compassView'));
   const goFoodBtn = $('goFoodBtn');
   if (goFoodBtn) goFoodBtn.addEventListener('click', () => switchView('foodView'));
   const goCultureBtn = $('goCultureBtn');
@@ -514,6 +523,146 @@ document.addEventListener('DOMContentLoaded', () => {
   if (goFestivalBtn) goFestivalBtn.addEventListener('click', () => switchView('festivalsView'));
   const goHotelBtn = $('goHotelBtn');
   if (goHotelBtn) goHotelBtn.addEventListener('click', () => switchView('hotelsView'));
+
+  // ── TRAVEL COMPASS ─────────────────────────────────
+  // Region of each site (derived from location) + vibe tags for planning.
+  const REGION_OF = {
+    'taj-mahal':'north','agra-fort':'north','fatehpur-sikri':'north',
+    'qutub-minar':'north','red-fort':'north','jantar-mantar':'north',
+    'ajanta-caves':'west','ellora-caves':'west','elephanta-caves':'west',
+    'champaner':'west','rani-ki-vav':'west',
+    'sun-temple':'east','bodh-gaya':'east',
+    'khajuraho':'north','sanchi-stupa':'north',
+    'hampi':'south','pattadakal':'south','chola-temples':'south',
+    'mahabalipuram':'south','goa-churches':'south'
+  };
+  const VIBE_OF = {
+    'taj-mahal':['romantic','family'],'agra-fort':['family','romantic'],
+    'fatehpur-sikri':['adventure','family'],'qutub-minar':['family','adventure'],
+    'red-fort':['family','spiritual'],'jantar-mantar':['family','adventure'],
+    'ajanta-caves':['spiritual','adventure'],'ellora-caves':['spiritual','adventure'],
+    'elephanta-caves':['adventure','family'],'champaner':['adventure','spiritual'],
+    'rani-ki-vav':['romantic','adventure'],'sun-temple':['spiritual','romantic'],
+    'bodh-gaya':['spiritual'],'khajuraho':['romantic','spiritual'],
+    'sanchi-stupa':['spiritual','family'],'hampi':['adventure','romantic'],
+    'pattadakal':['spiritual','family'],'chola-temples':['spiritual','family'],
+    'mahabalipuram':['romantic','family'],'goa-churches':['romantic','spiritual']
+  };
+  const DIR_DEG = { any:0, north:0, east:90, south:180, west:270 };
+  const DIR_LABEL = { any:'Anywhere', north:'North India', east:'East India', south:'South India', west:'West India' };
+  let compassDir = 'any', compassDays = 3, compassVibe = 'any';
+
+  function setCompassDir(dir, spinNeedle) {
+    compassDir = dir;
+    const needle = $('compassNeedle');
+    if (needle) {
+      const deg = DIR_DEG[dir] !== undefined ? DIR_DEG[dir] : 0;
+      needle.style.transition = spinNeedle === false ? 'none' : 'transform 1s cubic-bezier(.2,.8,.25,1.1)';
+      needle.style.transform = `translate(-50%,-100%) rotate(${deg + 360}deg)`;
+      setTimeout(() => {
+        needle.style.transition = 'transform 1s cubic-bezier(.2,.8,.25,1.1)';
+        needle.style.transform = `translate(-50%,-100%) rotate(${deg}deg)`;
+      }, 30);
+      $('compassDeg').textContent = deg + '°';
+    }
+    if ($('compassDirLabel')) $('compassDirLabel').textContent = DIR_LABEL[dir] || dir;
+    document.querySelectorAll('.cdir-btn').forEach(b =>
+      b.classList.toggle('picked', b.dataset.dir === dir));
+  }
+  function planTrail() {
+    const box = $('trailResults');
+    if (!box) return;
+    let pool = SITES.filter(s => compassDir === 'any' ? true : REGION_OF[s.id] === compassDir);
+    if (!pool.length) pool = SITES.slice();
+    if (compassVibe !== 'any') {
+      const matched = pool.filter(s => (VIBE_OF[s.id] || []).includes(compassVibe));
+      if (matched.length) pool = matched;
+    }
+    const picks = pool.slice(0, Math.min(compassDays + 1, pool.length));
+    const days = ['Day 1','Day 2','Day 3','Day 4','Day 5','Day 6','Day 7','Day 8'];
+    box.innerHTML = `<div class="trail-head"><i class="fa-solid fa-route"></i>
+      Your ${picks.length}-stop trail · ${DIR_LABEL[compassDir]} · ${compassVibe} vibe</div>` +
+      picks.map((s, i) => `
+      <div class="trail-stop">
+        <div class="trail-day">${days[i] || ('Day ' + (i + 1))}</div>
+        <div class="trail-thumb">${imgTag(s)}</div>
+        <div style="flex:1;">
+          <strong>${s.name}</strong>
+          <div class="booking-sub">${s.location} · Best: ${s.reco.time}</div>
+        </div>
+        <button class="trail-go" data-id="${s.id}" title="Open site"><i class="fa-solid fa-arrow-right"></i></button>
+      </div>`).join('') +
+      `<button class="btn-primary compass-plan-btn" id="trailToHotels" style="margin-top:12px;background:var(--gold);">
+        <i class="fa-solid fa-hotel"></i> Find Stays For This Trail</button>`;
+    box.querySelectorAll('.trail-go').forEach(b =>
+      b.addEventListener('click', () => { switchView('exploreView'); openSite(b.dataset.id); }));
+    const th = $('trailToHotels');
+    if (th) th.addEventListener('click', () => switchView('hotelsView'));
+  }
+  // Compass dial buttons + chips + spin
+  document.querySelectorAll('.cdir-btn').forEach(b =>
+    b.addEventListener('click', () => setCompassDir(b.dataset.dir)));
+  const daysChips = $('daysChips'), vibeChips = $('vibeChips');
+  if (daysChips) daysChips.querySelectorAll('.chip').forEach(c =>
+    c.addEventListener('click', () => {
+      daysChips.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+      c.classList.add('active');
+      compassDays = parseInt(c.dataset.days, 10) || 3;
+    }));
+  if (vibeChips) vibeChips.querySelectorAll('.chip').forEach(c =>
+    c.addEventListener('click', () => {
+      vibeChips.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+      c.classList.add('active');
+      compassVibe = c.dataset.vibe || 'any';
+    }));
+  const planBtn = $('compassPlanBtn');
+  if (planBtn) planBtn.addEventListener('click', planTrail);
+  const spinBtn = $('compassSpin');
+  if (spinBtn) spinBtn.addEventListener('click', () => {
+    const dirs = ['north','east','south','west'];
+    setCompassDir(dirs[Math.floor(Math.random() * dirs.length)]);
+    setTimeout(planTrail, 700);
+  });
+  // Ticks around the dial (radius follows dial size: 47% of dial)
+  const ticks = $('compassTicks');
+  if (ticks) {
+    const dial = $('compassDial');
+    const radius = dial ? Math.round(dial.offsetWidth * 0.44) : 110;
+    for (let i = 0; i < 36; i++) {
+      const t = document.createElement('span');
+      t.className = 'tick' + (i % 9 === 0 ? ' major' : '');
+      t.style.transform = `rotate(${i * 10}deg) translateY(${-radius}px)`;
+      ticks.appendChild(t);
+    }
+  }
+  // ── PHONE DRAWER ───────────────────────────────────
+  const menuBtn = $('menuBtn'), backdrop = $('sidebarBackdrop');
+  if (menuBtn) menuBtn.addEventListener('click', () =>
+    document.body.classList.toggle('sidebar-open'));
+  if (backdrop) backdrop.addEventListener('click', () =>
+    document.body.classList.remove('sidebar-open'));
+  // ── PHONE COMPASS SENSOR (real heading where supported)
+  try {
+    const needle = $('compassNeedle');
+    const degEl = $('compassDeg');
+    const onHeading = h => {
+      if (h === null || h === undefined || compassDir !== 'any') return;
+      if (needle && !document.body.classList.contains('user-picked')) {
+        needle.style.transform = `translate(-50%,-100%) rotate(${-h}deg)`;
+        if (degEl) degEl.textContent = Math.round(h) + '°';
+      }
+    };
+    if ('ondeviceorientationabsolute' in window || 'ondeviceorientation' in window) {
+      window.addEventListener('deviceorientationabsolute', e => {
+        if (e.alpha !== null) onHeading(360 - e.alpha);
+      }, true);
+      window.addEventListener('deviceorientation', e => {
+        if (e.webkitCompassHeading !== undefined) onHeading(e.webkitCompassHeading);
+      }, true);
+    }
+    document.querySelectorAll('.cdir-btn').forEach(b =>
+      b.addEventListener('click', () => document.body.classList.add('user-picked')));
+  } catch (e) {}
 
   // Food grid + category filters
   let foodFilter = 'all';
